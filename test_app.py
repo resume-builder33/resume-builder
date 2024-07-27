@@ -44,7 +44,7 @@ class ResumeBuilderTestCase(unittest.TestCase):
         }
 
         # Make a POST request to the /generate endpoint with the example data
-        response = self.app.post('/generate', data=example_data)
+        response = self.app.post('/generate', data=example_data) 
 
         # Check if the status code is 200 (OK)
         self.assertEqual(response.status_code, 200)

@@ -1,0 +1,76 @@
+{
+    "header": {
+      "name": "",
+      "phoneNumber": "",
+      "email": "",
+      "personalWebsite": "",
+      "linkedIn": "",
+      "github": ""
+    },
+    "education": [
+      {
+        "institution": "",
+        "program": "",
+        "location": "",
+        "graduationDate": "",
+        "descriptions": ["", "", ""]
+      }
+    ],
+    "experience": [
+      {
+        "position": "",
+        "date": "",
+        "organization": "",
+        "location": "",
+        "descriptions": ["", "", ""]
+      },
+      {
+        "position": "",
+        "date": "",
+        "organization": "",
+        "location": "",
+        "descriptions": ["", "", ""]
+      },
+      {
+        "position": "",
+        "date": "",
+        "organization": "",
+        "location": "",
+        "descriptions": ["", "", ""]
+      }
+    ],
+    "communityAndLeadership": [
+      {
+        "position": "",
+        "date": "",
+        "organization": "",
+        "location": "",
+        "descriptions": ["", "", ""]
+      }
+    ],
+    "projects": [
+      {
+        "title": "",
+        "utilities": "",
+        "date": "",
+        "descriptions": ["", "", ""]
+      },
+      {
+        "title": "",
+        "utilities": "",
+        "date": "",
+        "descriptions": ["", "", ""]
+      },
+      {
+        "title": "",
+        "utilities": "",
+        "date": "",
+        "descriptions": ["", "", ""]
+      }
+    ],
+    "skills": [
+      ["", ""],
+      ["", ""],
+      ["", ""]
+    ]
+  }
