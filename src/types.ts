@@ -1,4 +1,4 @@
-type ResumeInput = {
+export type ResumeInput = {
   header: Header;
   education: Education[];
   experience: Role[];
@@ -9,7 +9,7 @@ type ResumeInput = {
 
 type Header = {
   name: string;
-  phoneNumber: number;
+  phoneNumber: string;
   email: string;
   personalWebsite: string;
   linkedIn: string;
@@ -26,8 +26,7 @@ type Education = {
 
 type Role = {
   position: string;
-  startDate: string;
-  endDate: string;
+  date: string;
   organization: string;
   location: string;
   descriptions: Description[];
@@ -35,9 +34,8 @@ type Role = {
 
 type Project = {
   title: string;
-  utilities: string[];
-  startDate: string;
-  endDate: string;
+  utilities: string;
+  date: string;
   descriptions: Description[];
 };
 
