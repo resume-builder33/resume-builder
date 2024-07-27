@@ -39,7 +39,7 @@ type Project = {
   descriptions: Description[];
 };
 
-type Skills = Array<[string, string[]]>;
+type Skills = Array<[string, string]>;
 
 type Description = string;
 
