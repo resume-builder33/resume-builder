@@ -1,81 +1,49 @@
-# Import necessary modules
-from flask import Flask, request, render_template, send_file, jsonify
-from jinja2 import Template
 import subprocess
+import tempfile
 import os
 
-app = Flask(__name__)
 
-#Set character limits for input fields to ensure data fits well in the LaTeX template
-CHARACTER_LIMITS = {
-    'name': 50,
-    'email': 100,
-    'education': 500,
-    'experience': 1000,
-    'skills': 300,
-    'projects': 1000,
-    'technical_skills': 300,
-}
+# # Import necessary modules
+# from flask import Flask, request, render_template, send_file, jsonify
+# from jinja2 import Template
+# import subprocess
+# import os
 
-# Create a function to validate input data based on character limits
-def validate_input(data):
-    for field, limit in CHARACTER_LIMITS.items():
-        if len(data.get(field, '')) > limit:
-            return False, f"{field} exceeds character limit of {limit}"
-    return True, None
+# app = Flask(__name__)
 
-# Route to render the input form
-@app.route('/')
-def index():
-    return render_template('index.html')
+# #Set character limits for input fields to ensure data fits well in the LaTeX template
+# CHARACTER_LIMITS = {
+#     'name': 50,
+#     'email': 100,
+#     'education': 500,
+#     'experience': 1000,
+#     'skills': 300,
+#     'projects': 1000,
+#     'technical_skills': 300,
+# }
 
-# Route to handle form submissions
+# # Create a function to validate input data based on character limits
+# def validate_input(data):
+#     for field, limit in CHARACTER_LIMITS.items():
+#         if len(data.get(field, '')) > limit:
+#             return False, f"{field} exceeds character limit of {limit}"
+#     return True, None
 
-data = {
-            'name': 'John Doe',
-            'email': 'johndoe@example.com',
-            'phone': '123-456-7890',
-            'linkedin': 'https://linkedin.com/in/johndoe',
-            'github': 'https://github.com/johndoe',
-            'university': 'University of Example',
-            'edu_dates': 'Aug 2015 - May 2019',
-            'degree': 'Bachelor of Science in Computer Science',
-            'gpa': '3.8/4.0',
-            'education_item1': 'Relevant coursework: Algorithms, Data Structures',
-            'education_item2': 'Dean\'s List: Fall 2015, Spring 2017',
-            'education_item3': 'Graduated with Honors',
-            'role1_title': 'Software Engineer',
-            'role1_dates': 'Jun 2019 - Present',
-            'role1_company': 'Example Corp',
-            'role1_location': 'Example City, EX',
-            'role1_description1': 'Developed and maintained web applications.',
-            'role1_description2': 'Collaborated with cross-functional teams.',
-            'role1_description3': 'Implemented RESTful APIs.',
-            'project1_title': 'Project Alpha',
-            'project1_technologies': 'Python, Flask, PostgreSQL',
-            'project1_dates': 'Jan 2020 - Dec 2020',
-            'project1_description1': 'Led the development of a web application.',
-            'project1_description2': 'Integrated third-party services.',
-            'project2_title': 'Project Beta',
-            'project2_technologies': 'Java, Spring Boot, MySQL',
-            'project2_dates': 'Jan 2021 - Present',
-            'project2_description1': 'Designed and implemented microservices.',
-            'project2_description2': 'Optimized database performance.',
-            'technical_skills': 'Python, Java, SQL, Git, Docker'
-        }
-@app.route('/generate', methods=['POST'])
-def generate():
-    # Get form data from the request
-    print(data)
-    data = request.form
-    # Validate the input data
-    is_valid, error_message = validate_input(data)
-    if not is_valid:
-        return jsonify({'error': error_message}), 400
+# # Route to render the input form
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-    # Define LaTeX template content with placeholders for user inputs
+
 latex_template = r'''
+%-------------------------
+% Resume in Latex
+% Author : Sidratul Muntaha Ahmed
+% License : MIT
+%------------------------
+
 \documentclass[letterpaper,11pt]{article}
+
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
 \usepackage{titlesec}
@@ -88,6 +56,20 @@ latex_template = r'''
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \input{glyphtounicode}
+\usepackage{underscore}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
@@ -135,7 +117,7 @@ latex_template = r'''
 \newcommand{\resumeSubSubheading}[2]{
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \textit{\small#1} & \textit{\small#2} \\
+      \textit{\small#1} & \textit{\small #2} \\
     \end{tabular*}\vspace{-7pt}
 }
 
@@ -155,6 +137,7 @@ latex_template = r'''
 \newcommand{\resumeItemListStart}{\begin{itemize}}
 \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
 
+
 %-------------------------------------------
 %%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -162,22 +145,22 @@ latex_template = r'''
 
 %----------HEADING----------
 \begin{center}
-    \textbf{\Huge \scshape {{ name }}} \\ \vspace{1pt}
-    \small {{ phone }} $|$ \href{mailto:{{ email }}}{\underline{{ email }}} $|$ 
-    \href{{ {{ linkedin }} }}{\underline{{ linkedin }}} $|$
-    \href{{ {{ github }} }}{\underline{{ github }}}
+    \textbf{\Huge \scshape {name}} \\ \vspace{1pt}
+    \small {phone} $|$ \href{mailto:{email}}{\underline{{email}}} $|$ 
+    \href{{linkedin}}{\underline{{linkedin}}} $|$
+    \href{{github}}{\underline{{github}}}
 \end{center}
 
 %-----------EDUCATION-----------
 \section{Education}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {{ university }}{{ edu_dates }}
-      {{ degree }}{GPA: {{ gpa }}}
+      {{university}}{{edu_dates}}
+      {{Degree}}{{GPA: gpa}}
       \resumeItemListStart
-        \resumeItem{{ education_item1 }}
-        \resumeItem{{ education_item2 }}
-        \resumeItem{{ education_item3 }}
+        \resumeItem{{education_item1}}
+        \resumeItem{{education_item2}}
+        \resumeItem{{education_item3}}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 
@@ -185,87 +168,116 @@ latex_template = r'''
 \section{Experience}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {{ role1_title }}{{ role1_dates }}
-      {{ role1_company }}{{ role1_location }}
+      {{role1_title}}{{role1_dates}}
+      {{role1_company}}{{role1_location}}
       \resumeItemListStart
-        \resumeItem{{ role1_description1 }}
-        \resumeItem{{ role1_description2 }}
-        \resumeItem{{ role1_description3 }}
+        \resumeItem{{role1_description1}}
+        \resumeItem{{role1_description2}}
+        \resumeItem{{role1_description3}}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
+
 
 %-----------PROJECTS-----------
 \section{Projects}
   \resumeSubHeadingListStart
     \resumeProjectHeading
-      {\textbf{{ project1_title }} $|$ \emph{{ project1_technologies }}}{ {{ project1_dates }} }
+      {\textbf{{project1_title}} $|$ \emph{{project1_technologies}}}{{project1_dates}}
       \resumeItemListStart
-        \resumeItem{{ project1_description1 }}
-        \resumeItem{{ project1_description2 }}
+        \resumeItem{{project1_description1}}
+        \resumeItem{{project1_description2}}
       \resumeItemListEnd
     \resumeProjectHeading
-      {\textbf{{ project2_title }} $|$ \emph{{ project2_technologies }}}{ {{ project2_dates }} }
+      {\textbf{{project2_title}} $|$ \emph{{project2_technologies}}}{{project2_dates}}
       \resumeItemListStart
-        \resumeItem{{ project2_description1 }}
-        \resumeItem{{ project2_description2 }}
+        \resumeItem{{project2_description1}}
+        \resumeItem{{project2_description2}}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
+
 
 %-----------TECHNICAL SKILLS-----------
 \section{Technical Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-     \textbf{Languages}{: {{ technical_skills }}}
+     \textbf{Languages}{: {technical_skills}}
     }}
  \end{itemize}
 
+
+%-------------------------------------------
 \end{document}
 '''
 
- # Render the LaTeX template with user inputs
-template = Template(latex_template)
-rendered_tex = template.render(
-        name=data['name'],
-        email=data['email'],
-        phone=data['phone'],
-        linkedin=data['linkedin'],
-        github=data['github'],
-        university=data['university'],
-        edu_dates=data['edu_dates'],
-        degree=data['degree'],
-        gpa=data['gpa'],
-        education_item1=data['education_item1'],
-        education_item2=data['education_item2'],
-        education_item3=data['education_item3'],
-        role1_title=data['role1_title'],
-        role1_dates=data['role1_dates'],
-        role1_company=data['role1_company'],
-        role1_location=data['role1_location'],
-        role1_description1=data['role1_description1'],
-        role1_description2=data['role1_description2'],
-        role1_description3=data['role1_description3'],
-        project1_title=data['project1_title'],
-        project1_technologies=data['project1_technologies'],
-        project1_dates=data['project1_dates'],
-        project1_description1=data['project1_description1'],
-        project1_description2=data['project1_description2'],
-        project2_title=data['project2_title'],
-        project2_technologies=data['project2_technologies'],
-        project2_dates=data['project2_dates'],
-        project2_description1=data['project2_description1'],
-        project2_description2=data['project2_description2'],
-        technical_skills=data['technical_skills']
-    )
 
-    # Write the rendered LaTeX to a file
-tex_file = 'output.tex'
-with open(tex_file, 'w') as f:
-        f.write(rendered_tex)
 
-    # Compile the LaTeX file into a PDF using MiKTeX
-subprocess.call(['pdflatex', tex_file])
 
-#     # Serve the generated PDF back to the user
-# return send_file('output.pdf', as_attachment=True)
+# Define the function to render the template with the given data
+def render_latex_template(template, data):
+    for key, value in data.items():
+        placeholder = "{" + key + "}"
+        template = template.replace(placeholder, value)
+    return template
 
-print(generate)
+# Example data dictionary
+data = {
+    'name': 'John Doe',
+    'email': 'johndoe@example.com',
+    'phone': '123-456-7890',
+    'linkedin': 'https://linkedin.com/in/johndoe',
+    'github': 'https://github.com/johndoe',
+    'university': 'University of Example',
+    'edu_dates': 'Aug 2015 - May 2019',
+    'degree': 'Bachelor of Science in Computer Science',
+    'gpa': '3.8/4.0',
+    'education_item1': 'Relevant coursework: Algorithms, Data Structures',
+    'education_item2': 'Dean\'s List: Fall 2015, Spring 2017',
+    'education_item3': 'Graduated with Honors',
+    'role1_title': 'Software Engineer',
+    'role1_dates': 'Jun 2019 - Present',
+    'role1_company': 'Example Corp',
+    'role1_location': 'Example City, EX',
+    'role1_description1': 'Developed and maintained web applications.',
+    'role1_description2': 'Collaborated with cross-functional teams.',
+    'role1_description3': 'Implemented RESTful APIs.',
+    'project1_title': 'Project Alpha',
+    'project1_technologies': 'Python, Flask, PostgreSQL',
+    'project1_dates': 'Jan 2020 - Dec 2020',
+    'project1_description1': 'Led the development of a web application.',
+    'project1_description2': 'Integrated third-party services.',
+    'project2_title': 'Project Beta',
+    'project2_technologies': 'Java, Spring Boot, MySQL',
+    'project2_dates': 'Jan 2021 - Present',
+    'project2_description1': 'Designed and implemented microservices.',
+    'project2_description2': 'Optimized database performance.',
+    'technical_skills': 'Python, Java, SQL, Git, Docker'
+}
+
+# Render the LaTeX template with the provided data
+rendered_latex = render_latex_template(latex_template, data)
+
+
+print(rendered_latex)
+
+
+
+def latex_to_pdf(rendered_latex, output_filename='output.pdf'):
+    latex_file = 'temp.tex'
+    try:
+        with open(latex_file, 'w') as f:
+            f.write(rendered_latex)
+        
+        subprocess.run(['pdflatex', latex_file])
+        
+        # Rename the output PDF file
+        os.rename('temp.pdf', output_filename)
+    finally:
+        # Clean up auxiliary files generated by pdflatex
+        for ext in ['aux', 'log', 'tex', 'out']:
+            try:
+                os.remove(f'temp.{ext}')
+            except FileNotFoundError:
+                pass
+
+
+latex_to_pdf(rendered_latex, 'output.pdf')

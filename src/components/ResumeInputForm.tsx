@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { ResumeInput } from "../types";
 import postResume from "../utils/postResume.ts";
 
