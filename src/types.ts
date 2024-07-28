@@ -1,45 +1,32 @@
 export type ResumeInput = {
-  header: Header;
-  education: Education[];
-  experience: Role[];
-  communityAndLeadership: Role[];
-  projects: Project[];
-  skills: Skills;
-};
-
-type Header = {
   name: string;
-  phoneNumber: string;
   email: string;
-  personalWebsite: string;
-  linkedIn: string;
-  github?: string;
+  phone: string;
+  linkedin: string;
+  github: string;
+  university: string;
+  edu_dates: string;
+  degree: string;
+  gpa: string;
+  education_item1: string;
+  education_item2: string;
+  education_item3: string;
+  role1_title: string;
+  role1_dates: string;
+  role1_company: string;
+  role1_location: string;
+  role1_description1: string;
+  role1_description2: string;
+  role1_description3: string;
+  project1_title: string;
+  project1_technologies: string;
+  project1_dates: string;
+  project1_description1: string;
+  project1_description2: string;
+  project2_title: string;
+  project2_technologies: string;
+  project2_dates: string;
+  project2_description1: string;
+  project2_description2: string;
+  technical_skills: string;
 };
-
-type Education = {
-  institution: string;
-  program: string;
-  location: string;
-  graduationDate: string;
-  descriptions: Description[];
-};
-
-type Role = {
-  position: string;
-  date: string;
-  organization: string;
-  location: string;
-  descriptions: Description[];
-};
-
-type Project = {
-  title: string;
-  utilities: string;
-  date: string;
-  descriptions: Description[];
-};
-
-type Skills = Array<[string, string]>;
-
-type Description = string;
-

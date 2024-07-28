@@ -1,127 +1,115 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { ResumeInput } from "../types";
 import postResume from "../utils/postResume.ts";
 
-// const whatTheInputIsSupposedToBe = {
-//   header: {
-//     name: '',
-//     phoneNumber: '',
-//     email: '',
-//     personalWebsite: '',
-//     linkedIn: '',
-//     github: '',
-//   },
-//   education: [],
-//   experience: [],
-//   communityAndLeadership: [],
-//   projects: [],
-//   skills: [],
-// }
-
-const demoInput: ResumeInput = {
-  header: {
-    name: '',
-    phoneNumber: '',
-    email: '',
-    personalWebsite: '',
-    linkedIn: '',
-    github: '',
-  },
-  education: [
-    {
-      institution: '',
-      program: '',
-      location: '',
-      graduationDate: '',
-      descriptions: ['', '', ''],
-    },
-  ],
-  experience: [
-    {
-      position: '',
-      date: '',
-      organization: '',
-      location: '',
-      descriptions: ['', '', ''],
-    },
-    {
-      position: '',
-      date: '',
-      organization: '',
-      location: '',
-      descriptions: ['', '', ''],
-    },
-    {
-      position: '',
-      date: '',
-      organization: '',
-      location: '',
-      descriptions: ['', '', ''],
-    },
-  ],
-  communityAndLeadership: [
-    {
-      position: '',
-      date: '',
-      organization: '',
-      location: '',
-      descriptions: ['', '', ''],
-    },
-  ],
-  projects: [
-    {
-      title: '',
-      utilities: '',
-      date: '',
-      descriptions: ['', '', ''],
-    },
-    {
-      title: '',
-      utilities: '',
-      date: '',
-      descriptions: ['', '', ''],
-    },
-    {
-      title: '',
-      utilities: '',
-      date: '',
-      descriptions: ['', '', ''],
-    },
-  ],
-  skills: [
-    ['', ''],
-    ['', ''],
-    ['', ''],
-  ],
-};
 
 
 export const ResumeInputForm: React.FC = () => {
-  const [formData, setFormData] = useState<ResumeInput>(demoInput);
+  const [formData, setFormData] = useState<ResumeInput>({
+    name: "",
+    email: "",
+    phone: "",
+    linkedin: "",
+    github: "",
+    university: "",
+    edu_dates: "",
+    degree: "",
+    gpa: "",
+    education_item1: "",
+    education_item2: "",
+    education_item3: "",
+    role1_title: "",
+    role1_dates: "",
+    role1_company: "",
+    role1_location: "",
+    role1_description1: "",
+    role1_description2: "",
+    role1_description3: "",
+    project1_title: "",
+    project1_technologies: "",
+    project1_dates: "",
+    project1_description1: "",
+    project1_description2: "",
+    project2_title: "",
+    project2_technologies: "",
+    project2_dates: "",
+    project2_description1: "",
+    project2_description2: "",
+    technical_skills: "",
+  });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fields = [
+    'name',
+    'email',
+    'phone',
+    'linkedin',
+    'github',
+    'university',
+    'edu_dates',
+    'degree',
+    'gpa',
+    'education_item1',
+    'education_item2',
+    'education_item3',
+    'role1_title',
+    'role1_dates',
+    'role1_company',
+    'role1_location',
+    'role1_description1',
+    'role1_description2',
+    'role1_description3',
+    'project1_title',
+    'project1_technologies',
+    'project1_dates',
+    'project1_description1',
+    'project1_description2',
+    'project2_title',
+    'project2_technologies',
+    'project2_dates',
+    'project2_description1',
+    'project2_description2',
+    'technical_skills'
+  ] as const;
+
+  const placeholders: Record<keyof ResumeInput, string> = {
+    name: "Full Name",
+    email: "Email Address",
+    phone: "Phone Number",
+    linkedin: "LinkedIn Profile URL",
+    github: "GitHub Profile URL",
+    university: "University Name",
+    edu_dates: "Education Dates",
+    degree: "Degree",
+    gpa: "GPA",
+    education_item1: "Education Item 1",
+    education_item2: "Education Item 2",
+    education_item3: "Education Item 3",
+    role1_title: "Job Title",
+    role1_dates: "Employment Dates",
+    role1_company: "Company Name",
+    role1_location: "Job Location",
+    role1_description1: "Job Description 1",
+    role1_description2: "Job Description 2",
+    role1_description3: "Job Description 3",
+    project1_title: "Project 1 Title",
+    project1_technologies: "Project 1 Technologies",
+    project1_dates: "Project 1 Dates",
+    project1_description1: "Project 1 Description 1",
+    project1_description2: "Project 1 Description 2",
+    project2_title: "Project 2 Title",
+    project2_technologies: "Project 2 Technologies",
+    project2_dates: "Project 2 Dates",
+    project2_description1: "Project 2 Description 1",
+    project2_description2: "Project 2 Description 2",
+    technical_skills: "Technical Skills",
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
-    // Split the name into parts
-    const nameParts = name.split('.');
-
-    // Helper function to update nested state
-    const updateNestedState = (parts: string[], state: any, value: any) => {
-      const key = parts[0];
-      if (parts.length === 1) {
-        return {
-          ...state,
-          [key]: value,
-        };
-      } else {
-        return {
-          ...state,
-          [key]: updateNestedState(parts.slice(1), state[key], value),
-        };
-      }
-    };
-
-    setFormData(prevData => updateNestedState(nameParts, prevData, value));
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -130,517 +118,20 @@ export const ResumeInputForm: React.FC = () => {
     postResume(formData);
   };
 
-  const headers = () => {
-    return (
-      <div>
-        <h2>Header</h2>
-        <input
-          type="text"
-          name="header.name"
-          value={formData.header.name}
-          onChange={handleInputChange}
-          placeholder="Name"
-        />
-        <input
-          type="text"
-          name="header.phoneNumber"
-          value={formData.header.phoneNumber}
-          onChange={handleInputChange}
-          placeholder="Phone Number"
-        />
-        <input
-          type="text"
-          name="header.email"
-          value={formData.header.email}
-          onChange={handleInputChange}
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          name="header.personalWebsite"
-          value={formData.header.personalWebsite}
-          onChange={handleInputChange}
-          placeholder="www.website.com"
-        />
-        <input
-          type="text"
-          name="header.linkedIn"
-          value={formData.header.linkedIn}
-          onChange={handleInputChange}
-          placeholder="LinkedIn"
-        />
-        <input
-          type="text"
-          name="header.github"
-          value={formData.header.github}
-          onChange={handleInputChange}
-          placeholder="www.github.com/example"
-        />
-      </div>
-    )
-  };
-
-  const education = () => {
-    return (
-      <div>
-        <h2>Education</h2>
-        <input
-          type="text"
-          name="education.0.institution"
-          value={formData.education[0].institution}
-          onChange={handleInputChange}
-          placeholder="Harvard Engineering"
-        />
-        <input
-          type="text"
-          name="education.0.program"
-          value={formData.education[0].program}
-          onChange={handleInputChange}
-          placeholder="Computer Science"
-        />
-        <input
-          type="text"
-          name="education.0.location"
-          value={formData.education[0].location}
-          onChange={handleInputChange}
-          placeholder="Boston, MA"
-        />
-        <input
-          type="text"
-          name="education.0.graduationDate"
-          value={formData.education[0].graduationDate}
-          onChange={handleInputChange}
-          placeholder="June 1999"
-        />
-        <input
-          type="text"
-          name="education.0.descriptions.0"
-          value={formData.education[0].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="education.0.descriptions.1"
-          value={formData.education[0].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="education.0.descriptions.2"
-          value={formData.education[0].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-      </div>
-    )
-  };
-
-  const experience = () => {
-    return (
-      <div>
-        <h2>Experience</h2>
-        <input
-          type="text"
-          name="experience.0.position"
-          value={formData.experience[0].position}
-          onChange={handleInputChange}
-          placeholder="Fullstack Engineer"
-        />
-        <input
-          type="text"
-          name="experience.0.date"
-          value={formData.experience[0].date}
-          onChange={handleInputChange}
-          placeholder="2020"
-        />
-        <input
-          type="text"
-          name="experience.0.organization"
-          value={formData.experience[0].organization}
-          onChange={handleInputChange}
-          placeholder="Microsoft"
-        />
-        <input
-          type="text"
-          name="experience.0.location"
-          value={formData.experience[0].location}
-          onChange={handleInputChange}
-          placeholder="New York, New York"
-        />
-        <input
-          type="text"
-          name="experience.0.descriptions.0"
-          value={formData.experience[0].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.0.descriptions.1"
-          value={formData.experience[0].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.0.descriptions.2"
-          value={formData.experience[0].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.1.position"
-          value={formData.experience[1].position}
-          onChange={handleInputChange}
-          placeholder="Fullstack Engineer"
-        />
-        <input
-          type="text"
-          name="experience.1.date"
-          value={formData.experience[1].date}
-          onChange={handleInputChange}
-          placeholder="2020-2021"
-        />
-        <input
-          type="text"
-          name="experience.1.organization"
-          value={formData.experience[1].organization}
-          onChange={handleInputChange}
-          placeholder="Microsoft"
-        />
-        <input
-          type="text"
-          name="experience.1.location"
-          value={formData.experience[1].location}
-          onChange={handleInputChange}
-          placeholder="New York, New York"
-        />
-        <input
-          type="text"
-          name="experience.1.descriptions.0"
-          value={formData.experience[1].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.1.descriptions.1"
-          value={formData.experience[1].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.1.descriptions.2"
-          value={formData.experience[1].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.2.position"
-          value={formData.experience[2].position}
-          onChange={handleInputChange}
-          placeholder="Fullstack Engineer"
-        />
-        <input
-          type="text"
-          name="experience.2.date"
-          value={formData.experience[2].date}
-          onChange={handleInputChange}
-          placeholder="2020"
-        />
-        <input
-          type="text"
-          name="experience.2.organization"
-          value={formData.experience[2].organization}
-          onChange={handleInputChange}
-          placeholder="Microsoft"
-        />
-        <input
-          type="text"
-          name="experience.2.location"
-          value={formData.experience[2].location}
-          onChange={handleInputChange}
-          placeholder="New York, New York"
-        />
-        <input
-          type="text"
-          name="experience.2.descriptions.0"
-          value={formData.experience[2].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.2.descriptions.1"
-          value={formData.experience[2].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="experience.2.descriptions.2"
-          value={formData.experience[2].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-      </div>
-    )
-  };
-
-  const communityAndLeadership = () => {
-    return (
-      <div>
-        <h2>Community and Leadership</h2>
-        <input
-          type="text"
-          name="communityAndLeadership.0.position"
-          value={formData.communityAndLeadership[0].position}
-          onChange={handleInputChange}
-          placeholder="Position"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.date"
-          value={formData.communityAndLeadership[0].date}
-          onChange={handleInputChange}
-          placeholder="Date"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.organization"
-          value={formData.communityAndLeadership[0].organization}
-          onChange={handleInputChange}
-          placeholder="Organization"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.location"
-          value={formData.communityAndLeadership[0].location}
-          onChange={handleInputChange}
-          placeholder="Location"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.descriptions.0"
-          value={formData.communityAndLeadership[0].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.descriptions.1"
-          value={formData.communityAndLeadership[0].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="communityAndLeadership.0.descriptions.2"
-          value={formData.communityAndLeadership[0].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-      </div>
-    )
-  };
-
-  const projects = () => {
-    return (
-      <div>
-        <h2>Projects</h2>
-        <input
-          type="text"
-          name="projects.0.title"
-          value={formData.projects[0].title}
-          onChange={handleInputChange}
-          placeholder="Project Name"
-        />
-        <input
-          type="text"
-          name="projects.0.utilities"
-          value={formData.projects[0].utilities}
-          onChange={handleInputChange}
-          placeholder="Utilities"
-        />
-        <input
-          type="text"
-          name="projects.0.date"
-          value={formData.projects[0].date}
-          onChange={handleInputChange}
-          placeholder="Date"
-        />
-        <input
-          type="text"
-          name="projects.0.descriptions.0"
-          value={formData.projects[0].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.0.descriptions.1"
-          value={formData.projects[0].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.0.descriptions.2"
-          value={formData.projects[0].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.1.title"
-          value={formData.projects[1].title}
-          onChange={handleInputChange}
-          placeholder="Project Name"
-        />
-        <input
-          type="text"
-          name="projects.1.utilities"
-          value={formData.projects[1].utilities}
-          onChange={handleInputChange}
-          placeholder="Utilities"
-        />
-        <input
-          type="text"
-          name="projects.1.date"
-          value={formData.projects[1].date}
-          onChange={handleInputChange}
-          placeholder="Date"
-        />
-        <input
-          type="text"
-          name="projects.1.descriptions.0"
-          value={formData.projects[1].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.1.descriptions.1"
-          value={formData.projects[1].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.1.descriptions.2"
-          value={formData.projects[1].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.2.title"
-          value={formData.projects[2].title}
-          onChange={handleInputChange}
-          placeholder="Project Name"
-        />
-        <input
-          type="text"
-          name="projects.2.utilities"
-          value={formData.projects[2].utilities}
-          onChange={handleInputChange}
-          placeholder="Utilities"
-        />
-        <input
-          type="text"
-          name="projects.2.date"
-          value={formData.projects[2].date}
-          onChange={handleInputChange}
-          placeholder="Date"
-        />
-        <input
-          type="text"
-          name="projects.2.descriptions.0"
-          value={formData.projects[2].descriptions[0]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.2.descriptions.1"
-          value={formData.projects[2].descriptions[1]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-        <input
-          type="text"
-          name="projects.2.descriptions.2"
-          value={formData.projects[2].descriptions[2]}
-          onChange={handleInputChange}
-          placeholder="something"
-        />
-      </div>
-    )
-  };
-
-  const skills = () => {
-    return (
-      <div>
-        <h2>Skills</h2>
-        <input
-          type="text"
-          name="skills.0.0"
-          value={formData.skills[0][0]}
-          onChange={handleInputChange}
-          placeholder="Programming Languages"
-        />
-        <input
-          type="text"
-          name="skills.0.1"
-          value={formData.skills[0][1]}
-          onChange={handleInputChange}
-          placeholder="Python, Javascript, Java"
-        />
-        <input
-          type="text"
-          name="skills.1.0"
-          value={formData.skills[1][0]}
-          onChange={handleInputChange}
-          placeholder="Frameworks"
-        />
-        <input
-          type="text"
-          name="skills.1.1"
-          value={formData.skills[1][1]}
-          onChange={handleInputChange}
-          placeholder="Node.js, React.js"
-        />
-        <input
-          type="text"
-          name="skills.2.0"
-          value={formData.skills[2][0]}
-          onChange={handleInputChange}
-          placeholder="Cloud"
-        />
-        <input
-          type="text"
-          name="skills.2.1"
-          value={formData.skills[2][1]}
-          onChange={handleInputChange}
-          placeholder="AWS, Azure"
-        />
-      </div>
-    )
-  };
-
   return (
     <form onSubmit={handleSubmit}>
-      {headers()}
-      {education()}
-      {experience()}
-      {communityAndLeadership()}
-      {projects()}
-      {skills()}
+      {fields.map((field) => (
+        <label key={field}>
+          {field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1)}:
+          <input
+            type="text"
+            name={field}
+            value={formData[field as keyof ResumeInput]}
+            onChange={handleInputChange}
+            placeholder={placeholders[field as keyof ResumeInput]}
+          />
+        </label>
+      ))}
       <button type="submit">Submit</button>
     </form>
   );
