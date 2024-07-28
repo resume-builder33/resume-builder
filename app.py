@@ -281,3 +281,4 @@ def latex_to_pdf(latex_file):
         
         return output_pdf, process.stdout, process.stderr
 
+latex_to_pdf(rendered_latex)
