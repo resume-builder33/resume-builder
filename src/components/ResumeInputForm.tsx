@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { ResumeInput } from "../types";
 import postResume from "../utils/postResume.ts";
 
@@ -119,20 +119,36 @@ export const ResumeInputForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {fields.map((field) => (
-        <label key={field}>
-          {field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1)}:
-          <input
-            type="text"
-            name={field}
-            value={formData[field as keyof ResumeInput]}
-            onChange={handleInputChange}
-            placeholder={placeholders[field as keyof ResumeInput]}
-          />
-        </label>
-      ))}
-      <button type="submit">Submit</button>
-    </form>
+    <div className="min-h-screen min-w-11 bg-gray-100 py-6 flex flex-col justify-center sm:py-12 ">
+      <div className="relative py-3 sm:max-w-9xl sm:mx-auto w-full px-4">
+        <div className="relative bg-white shadow-lg sm:rounded-3xl sm:p-10">
+          <h1 className="text-3xl font-semibold mb-6 text-center">Resume Builder</h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-col-3 gap-6">
+              {fields.map((field) => (
+                <div key={field} className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-1">
+                    {field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1)}:
+                  </label>
+                  <input
+                    type="text"
+                    name={field}
+                    value={formData[field as keyof ResumeInput]}
+                    onChange={handleInputChange}
+                    placeholder={placeholders[field as keyof ResumeInput]}
+                    className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 w-full"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center">
+              <button type="submit" className="py-2 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Generate Resume
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
