@@ -3,18 +3,6 @@ import tempfile
 import os
 
 
-<<<<<<< Updated upstream
-# Set character limits for input fields to ensure data fits well in the LaTeX template
-CHARACTER_LIMITS = {
-    'name': 50,
-    'email': 100,
-    'education': 500,
-    'experience': 1000,
-    'skills': 300,
-    'projects': 1000,
-    'technical_skills': 300,
-}
-=======
 # # Import necessary modules
 # from flask import Flask, request, render_template, send_file, jsonify
 # from jinja2 import Template
@@ -45,24 +33,7 @@ CHARACTER_LIMITS = {
 # @app.route('/')
 # def index():
 #     return render_template('index.html')
->>>>>>> Stashed changes
 
-
-
-<<<<<<< Updated upstream
-# Route to handle form submissions
-@app.route('/generate', methods=['POST'])
-def generate():
-    # Get form data from the request
-    data = request.form
-
-    # Validate the input data
-    is_valid, error_message = validate_input(data)
-    if not is_valid:
-        return jsonify({'error': error_message}), 400
-=======
-
->>>>>>> Stashed changes
 
 latex_template = r'''
 %-------------------------
@@ -238,43 +209,7 @@ latex_template = r'''
 \end{document}
 '''
 
-<<<<<<< Updated upstream
- # Render the LaTeX template with user inputs
-template = Template(latex_template)
-endered_tex = template.render(
-        name=data['name'],
-        email=data['email'],
-        phone=data['phone'],
-        linkedin=data['linkedin'],
-        github=data['github'],
-        university=data['university'],
-        edu_dates=data['edu_dates'],
-        degree=data['degree'],
-        gpa=data['gpa'],
-        education_item1=data['education_item1'],
-        education_item2=data['education_item2'],
-        education_item3=data['education_item3'],
-        role1_title=data['role1_title'],
-        role1_dates=data['role1_dates'],
-        role1_company=data['role1_company'],
-        role1_location=data['role1_location'],
-        role1_description1=data['role1_description1'],
-        role1_description2=data['role1_description2'],
-        role1_description3=data['role1_description3'],
-        project1_title=data['project1_title'],
-        project1_technologies=data['project1_technologies'],
-        project1_dates=data['project1_dates'],
-        project1_description1=data['project1_description1'],
-        project1_description2=data['project1_description2'],
-        project2_title=data['project2_title'],
-        project2_technologies=data['project2_technologies'],
-        project2_dates=data['project2_dates'],
-        project2_description1=data['project2_description1'],
-        project2_description2=data['project2_description2'],
-        technical_skills=data['technical_skills']
-    )
-=======
->>>>>>> Stashed changes
+
 
 
 # Define the function to render the template with the given data
@@ -284,10 +219,6 @@ def render_latex_template(template, data):
         template = template.replace(placeholder, value)
     return template
 
-<<<<<<< Updated upstream
-    # Serve the generated PDF back to the user
-return send_file('output.pdf', as_attachment=True)
-=======
 # Example data dictionary
 data = {
     'name': 'John Doe',
@@ -349,4 +280,4 @@ def latex_to_pdf(latex_file):
         os.rename(pdf_file, output_pdf)
         
         return output_pdf, process.stdout, process.stderr
->>>>>>> Stashed changes
+
