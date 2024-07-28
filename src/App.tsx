@@ -1,4 +1,3 @@
-import './App.css'
 import { ResumeInputForm } from './components/ResumeInputForm'
 
 function App() {
