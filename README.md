@@ -12,7 +12,9 @@
 
 ## Description
 
-Resume-Builder is a web application that allows users to input their resume details and generate a professional resume in PDF format. The application is built using React for the frontend and Flask for the backend.
+Resume-Builder is a web application that allows users to input their resume details
+and generate aprofessional resume in PDF format. The application is built using
+React for the frontend and Flask for the backend.
 
 ## Required Packages
 
@@ -128,11 +130,18 @@ To install TeX Live on Windows:
 
 ### Usage
 
-1. Open your web browser and navigate to `http://localhost:3000`.
+1. Open your web browser and navigate to
+`http://localhost:5173` for the production deployment or
+`http://localhost:5173` for the development deployment.
 2. Fill in the resume details in the form.
 3. Click the "Generate Resume" button to generate and download the PDF.
 
 ## Credits
+
+- [@kjunghoan](https://github.com/kjunghoan)
+- [@franco-e-romero](https://github.com/franco-e-romero)
+- [@vasantsaladi](https://github.com/vasantsaladi)
+- [@tomisin05](https://github.com/tomisin05)
 
 - [Vite](https://vitejs.dev/)
 - [React](https://reactjs.org/)
@@ -146,4 +155,6 @@ To install TeX Live on Windows:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for more details.
+
