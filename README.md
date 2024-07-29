@@ -142,6 +142,7 @@ To install TeX Live on Windows:
 - [ESLint](https://eslint.org/)
 - [Flask](https://flask.palletsprojects.com/)
 - [Jinja2](https://jinja.palletsprojects.com/)
+- [TeX Live](https://www.tug.org/texlive/)
 
 ## License
 
