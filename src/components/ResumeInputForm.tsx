@@ -112,10 +112,13 @@ export const ResumeInputForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit =(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
-    postResume(formData);
+    // console.log(formData);
+    let postedResume = postResume(formData);
+
+    console.log(`this is the posted resume~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`)
+    setTimeout(()=>{return console.log(postedResume)}, 300)
   };
 
   return (

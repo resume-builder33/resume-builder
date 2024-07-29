@@ -1,0 +1,65 @@
+{
+    "message": "Network Error",
+    "name": "AxiosError",
+    "stack": "AxiosError: Network Error\n    at XMLHttpRequest.handleError (http://localhost:5173/node_modules/.vite/deps/axios.js?v=86f37fa8:1581:14)\n    at Axios.request (http://localhost:5173/node_modules/.vite/deps/axios.js?v=86f37fa8:2067:41)",
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "adapter": [
+            "xhr",
+            "http",
+            "fetch"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "applicaiton/json"
+        },
+        "method": "post",
+        "url": "http://127.0.0.1:5000/generate",
+        "data": "{\"name\":\"a\",\"email\":\"a\",\"phone\":\"a\",\"linkedin\":\"a\",\"github\":\"a\",\"university\":\"a\",\"edu_dates\":\"a\",\"degree\":\"a\",\"gpa\":\"a\",\"education_item1\":\"a\",\"education_item2\":\"a\",\"education_item3\":\"a\",\"role1_title\":\"a\",\"role1_dates\":\"a\",\"role1_company\":\"a\",\"role1_location\":\"a\",\"role1_description1\":\"a\",\"role1_description2\":\"a\",\"role1_description3\":\"a\",\"project1_title\":\"a\",\"project1_technologies\":\"a\",\"project1_dates\":\"a\",\"project1_description1\":\"a\",\"project1_description2\":\"a\",\"project2_title\":\"a\",\"project2_technologies\":\"a\",\"project2_dates\":\"a\",\"project2_description1\":\"a\",\"project2_description2\":\"a\",\"technical_skills\":\"a\"}"
+    },
+    "code": "ERR_NETWORK",
+    "status": null
+}
+
+postResume.ts:7 
+ POST http://127.0.0.1:5000/generate net::ERR_FAILED 500 (INTERNAL SERVER ERROR)
+dispatchXhrRequest	@	axios.js?v=86f37fa8:1635
+xhr	@	axios.js?v=86f37fa8:1518
+dispatchRequest	@	axios.js?v=86f37fa8:1957
+_request	@	axios.js?v=86f37fa8:2162
+request	@	axios.js?v=86f37fa8:2063
+httpMethod	@	axios.js?v=86f37fa8:2191
+wrap	@	axios.js?v=86f37fa8:8
+postResume	@	postResume.ts:7
+handleSubmit	@	ResumeInputForm.tsx:118
+callCallback2	@	react-dom_client.js?v=86f37fa8:3674
+invokeGuardedCallbackDev	@	react-dom_client.js?v=86f37fa8:3699
+invokeGuardedCallback	@	react-dom_client.js?v=86f37fa8:3733
+invokeGuardedCallbackAndCatchFirstError	@	react-dom_client.js?v=86f37fa8:3736
+executeDispatch	@	react-dom_client.js?v=86f37fa8:7014
+processDispatchQueueItemsInOrder	@	react-dom_client.js?v=86f37fa8:7034
+processDispatchQueue	@	react-dom_client.js?v=86f37fa8:7043
+dispatchEventsForPlugins	@	react-dom_client.js?v=86f37fa8:7051
+(anonymous)	@	react-dom_client.js?v=86f37fa8:7174
+batchedUpdates$1	@	react-dom_client.js?v=86f37fa8:18913
+batchedUpdates	@	react-dom_client.js?v=86f37fa8:3579
+dispatchEventForPluginEventSystem	@	react-dom_client.js?v=86f37fa8:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay	@	react-dom_client.js?v=86f37fa8:5478
+dispatchEvent	@	react-dom_client.js?v=86f37fa8:5472
+dispatchDiscreteEvent
