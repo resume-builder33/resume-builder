@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Required Packages](#required-packages)
 - [How to Run](#how-to-run)
+- [TeX Live Installation](#tex-live-installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
@@ -28,6 +29,10 @@ Resume-Builder is a web application that allows users to input their resume deta
 
 - Flask
 - Jinja2
+
+### TeX Live
+
+- Required for generating PDF files.
 
 ## How to Run
 
@@ -92,6 +97,34 @@ Resume-Builder is a web application that allows users to input their resume deta
     ```bash
     flask run
     ```
+
+## TeX Live Installation
+
+TeX Live is required for generating PDF files. Follow the instructions below to install TeX Live on your system:
+
+### Linux
+
+To install TeX Live on a Linux system, run:
+
+```bash
+sudo apt-get update
+sudo apt-get install texlive
+```
+
+### macOS
+
+To install TeX Live on macOS, you can use Homebrew:
+
+```bash
+brew install --cask mactex
+```
+
+### Windows
+
+To install TeX Live on Windows:
+
+1. Download the TeX Live installer from [the TeX Live website](https://www.tug.org/texlive/)
+2. Run the installer and follow the installation instructions provided.
 
 ### Usage
 
