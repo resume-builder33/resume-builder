@@ -131,7 +131,7 @@ To install TeX Live on Windows:
 ### Usage
 
 1. Open your web browser and navigate to
-`http://localhost:5173` for the production deployment or
+`http://localhost:4173` for the production deployment or
 `http://localhost:5173` for the development deployment.
 2. Fill in the resume details in the form.
 3. Click the "Generate Resume" button to generate and download the PDF.
@@ -157,4 +157,3 @@ To install TeX Live on Windows:
 
 This project is licensed under the MIT License.
 See the [LICENSE](LICENSE) file for more details.
-
